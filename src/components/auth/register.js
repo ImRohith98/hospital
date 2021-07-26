@@ -6,6 +6,8 @@ const Register = () => {
     const history = useHistory();
     return (
         <div className="space-y-6">
+            <div className="text-2xl bold text-center pb-4">Register</div>
+
             <div className="w-full h-full flex flex-col space-y-6 justify-center items-center">
                 <input
                     type="text"

@@ -1,9 +1,10 @@
 import React from 'react'
-import ClgSvg from '../../style/svg/clg'
-import Doctor from "../../style/svg/undraw_medicine_b1ol.svg"
-import BoxMain from './boxMain'
+import ClgSvg from '../../../style/svg/clg'
+import Doctor from "../../../style/svg/undraw_doctors_hwty.svg"
 
-const Auth = () => {
+
+const DoctorAuthDesign = ({ children }) => {
+
     return (
         <div className="w-full h-full relative flex" style={{ minHeight: '100vh' }}>
             <div className="fixed z-20 top-0 left-0 px-12 py-6">
@@ -13,26 +14,26 @@ const Auth = () => {
                 <div className="flex flex-col flex-1 items-center justify-center " style={{ minHeight: 400 }}>
                     <img
                         style={{ width: "70%" }}
-                        src={Doctor} alt="patient" />
+                        src={Doctor} alt="doctor" />
                     <div className="text-lg pt-12 flex justify-center">
-                        Your Health.... Our Health .....
+                        You are off to an amazing, rewarding and exciting life.
                     </div>
                 </div>
                 <div className="flex flex-1 items-center justify-center" style={{ minHeight: 400 }}>
                     <div className="flex flex-col flex-1 items-center justify-center " style={{ minHeight: 400 }}>
                         <div className="rounded-lg p-8" style={{ minHeight: '400', minWidth: '600', background: "#e2f1f9" }}>
                             <div className="flex flex-col flex-initial items-center">
-                                <div className=" ">
-                                    <BoxMain />
+                                <div className="text-2xl bold"> Incognito</div>
+                                <div className="py-6 ">
+                                    {children}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
 
-export default Auth
+export default DoctorAuthDesign
