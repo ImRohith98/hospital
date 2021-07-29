@@ -6,9 +6,23 @@ import Auth from '../auth'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from '../Home'
+import { requestApi } from '../../utils/request'
+
 
 
 const AppMain = () => {
+
+
+    const getData = async () => {
+        const data = await requestApi("http://localhost:5000/auth", "GET")
+        console.log(data)
+    }
+
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+
     return (
         <Router>
             <div className="App">

@@ -23,7 +23,7 @@ const DoctorAuthDesign = ({ children }) => {
                     <div className="flex flex-col flex-1 items-center justify-center " style={{ minHeight: 400 }}>
                         <div className="rounded-lg p-8" style={{ minHeight: '400', minWidth: '600', background: "#e2f1f9" }}>
                             <div className="flex flex-col flex-initial items-center">
-                                <div className="text-2xl bold"> Incognito</div>
+                                {/* <div className="text-2xl bold"> Incognito</div> */}
                                 <div className="py-6 ">
                                     {children}
                                 </div>

@@ -1,15 +1,18 @@
 import React from 'react'
 import { useHistory } from 'react-router'
+import { useRouteMatch } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { requestApi } from '../../utils/request';
 
 const Login = () => {
 
     const history = useHistory()
+    let { url } = useRouteMatch();
 
     const [userName, setuserName] = React.useState();
     const [password, setpassword] = React.useState();
 
-    const onClickLogin = () => {
+    const onClickLogin = async () => {
         if (!userName && !password) {
             toast.warn("Please Enter  Username and Password", {
                 hideProgressBar: true,
@@ -25,24 +28,34 @@ const Login = () => {
                 hideProgressBar: true,
                 closeOnClick: true,
             })
-        } else if (userName === "rohith" && password === "rohith") {
-            toast.success("logged in", {
-                hideProgressBar: true,
-                closeOnClick: true,
-            })
-            let data = {
-                name: "rohith",
-                module: "patient"
+        } else if (userName && password) {
+            let r = {
+                mail: userName,
+                password: password
             }
-            localStorage.setItem('userData', JSON.stringify(data));
-            history.push(`/home`)
-        } else if (userName !== "rohith" && password !== "rohith") {
-            toast.error("please check username or password", {
-                hideProgressBar: true,
-                closeOnClick: true,
-            })
-        }
+            let data = await requestApi("http://localhost:5000/auth/login", "POST", r)
+            if (data?.error === true) {
+                toast.error(data?.message, {
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                })
+            } else {
+                if (url.split('/')[1] === data?.data?.type) {
+                    toast.success("logged in", {
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                    })
+                    localStorage.setItem('userData', JSON.stringify(data));
+                    history.push(`/home`)
+                } else {
+                    toast.error(`Please enter ${url.split('/')[1]} details`, {
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                    })
+                }
 
+            }
+        }
     }
 
 

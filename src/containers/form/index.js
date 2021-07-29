@@ -1,19 +1,21 @@
 import React from 'react'
+import moment from 'moment'
 
 const Form = ({ onSubmit, formValue }) => {
 
     const [form, setform] = React.useState({
-        firstname: "",
-        lastname: "",
-        middlename: "",
-        mail: "",
+        firstName: "",
+        lastName: "",
+        middleName: "",
+        mailid: "",
         gender: "",
-        dateofbirth: "",
+        dateOfBirth: "",
         address: "",
         specialization: "",
         doctor: "",
-        dateofapp: '',
+        appdateandtime: '',
         description: "",
+        userID: ''
     })
 
     const onFormChange = (name, value) => {
@@ -29,6 +31,8 @@ const Form = ({ onSubmit, formValue }) => {
         // eslint-disable-next-line
     }, [formValue])
 
+    console.log(moment(form.appdateandtime).format('yyyy-MM-DDThh:mm'))
+
 
     return (
         <React.Fragment>
@@ -39,8 +43,8 @@ const Form = ({ onSubmit, formValue }) => {
                     </div>
                     <input type="text"
                         className="rounded-lg px-2 py-2 text-xl"
-                        value={form.firstname}
-                        onChange={(e) => onFormChange("firstname", e.target.value)}
+                        value={form.firstName}
+                        onChange={(e) => onFormChange("firstName", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         placeholder="First Name" id="fname" name="fname"></input>
                 </div>
@@ -50,9 +54,9 @@ const Form = ({ onSubmit, formValue }) => {
                     </div>
                     <input type="text"
                         className="rounded-lg px-2 py-2 text-xl"
-                        value={form.middlename}
+                        value={form.middleName}
 
-                        onChange={(e) => onFormChange("middlename", e.target.value)}
+                        onChange={(e) => onFormChange("middleName", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         placeholder="Middle Name" id="mname" name="mname"></input>
                 </div>
@@ -62,9 +66,9 @@ const Form = ({ onSubmit, formValue }) => {
                     </div>
                     <input type="text"
                         className="rounded-lg px-2 py-2 text-xl"
-                        value={form.lastname}
+                        value={form.lastName}
 
-                        onChange={(e) => onFormChange("lastname", e.target.value)}
+                        onChange={(e) => onFormChange("lastName", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         placeholder="Last Name" id="lname" name="lname"></input>
                 </div>
@@ -77,9 +81,9 @@ const Form = ({ onSubmit, formValue }) => {
                     </div>
                     <input type="email"
                         className="rounded-lg px-2 py-2 text-xl"
-                        value={form.mail}
+                        value={form.mailid}
 
-                        onChange={(e) => onFormChange("mail", e.target.value)}
+                        onChange={(e) => onFormChange("mailid", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         placeholder="Mail ID" id="email" name="email"></input>
                 </div>
@@ -103,8 +107,8 @@ const Form = ({ onSubmit, formValue }) => {
                     </div>
                     <input type="date"
                         className="rounded-lg px-2 py-2 text-xl"
-                        value={form.dateofbirth}
-                        onChange={(e) => onFormChange("dateofbirth", e.target.value)}
+                        value={moment(form.dateOfBirth).format('yyyy-MM-DD')}
+                        onChange={(e) => onFormChange("dateOfBirth", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         id="dob" name="dob"></input>
                 </div>
@@ -134,7 +138,7 @@ const Form = ({ onSubmit, formValue }) => {
                         style={{ width: "75%", border: "1px solid #d3d3d3", padding: '10px' }}>
                         <option value="select">Select</option>
                         <option value="general">General Practice</option>
-                        <option value="ent">ENT</option>
+                        <option value="ENT">ENT</option>
                         <option value="orthopedic">Orthopedic</option>
                     </select>
                 </div>
@@ -149,9 +153,17 @@ const Form = ({ onSubmit, formValue }) => {
                         placeholder="Specialization"
                         style={{ width: "75%", border: "1px solid #d3d3d3", padding: '10px' }}>
                         <option value="none">Select</option>
-                        <option value="rohith">rohith</option>
-                        <option value="tinku">tinku</option>
-                        <option value="aasta">asta</option>
+                        <option value="EdwardJenner">Edward Jenner</option>
+                        <option value="Alexander Fleming">Alexander Fleming</option>
+                        <option value="Virginia Apgar">Virginia Apgar</option>
+                        <option value="Charles R. Drew">Charles R. Drew</option>
+                        <option value="Terry Dubrow">Terry Dubrow</option>
+                        <option value="Hippocrates">Hippocrates</option>
+                        <option value="Alfred Blalock">Alfred Blalock</option>
+                        <option value="James Andrews">James Andrews</option>
+                        <option value="Naresh Trehan">Naresh Trehan</option>
+                        <option value="Thomas F. Frist Jr.">Thomas F. Frist Jr.</option>
+
                     </select>
                 </div>
                 <div className="space-y-4 w-full">
@@ -159,9 +171,9 @@ const Form = ({ onSubmit, formValue }) => {
                         Select Date & Time :
                     </div>
                     <input type="datetime-local"
-                        value={form.dateofapp}
+                        value={moment(form.appdateandtime).format('yyyy-MM-DDThh:mm')}
                         className="rounded-lg px-2 py-2 text-xl"
-                        onChange={(e) => onFormChange("dateofapp", e.target.value)}
+                        onChange={(e) => onFormChange("appdateandtime", e.target.value)}
                         style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                         id="fname" name="fname"></input>
                 </div>

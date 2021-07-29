@@ -1,57 +1,59 @@
 import React from 'react'
+import { toast } from 'react-toastify'
 import Card from '../../../../containers/card'
 import Drawer from '../../../../containers/drawer'
 import Form from '../../../../containers/form'
+import { requestApi } from '../../../../utils/request'
 
 const UpdatePatient = () => {
 
     const [drawer, setdrawer] = React.useState(false)
+    const [list, setList] = React.useState([])
+    const [singleRec, setsingleRec] = React.useState([])
+    const [ser, setser] = React.useState("")
 
-    let updateList = [
-        {
-            name: 'DR.Rohith',
-            spe: 'ENT',
-            date: "23-07-2021 12:00",
-            status: 'Active'
-        },
-        {
-            name: 'DR.Rohith',
-            spe: 'ENT',
-            date: "23-07-2021 12:00",
-            status: 'Active'
-        },
-        {
-            name: 'DR.Rohith',
-            spe: 'ENT',
-            date: "23-07-2021 12:00",
-            status: 'Active'
-        },
-        {
-            name: 'DR.Rohith',
-            spe: 'ENT',
-            date: "23-07-2021 12:00",
-            status: 'Active'
-        },
-        {
-            name: 'DR.Rohith',
-            spe: 'ENT',
-            date: "23-07-2021 12:00",
-            status: 'Active'
+
+
+
+
+    const getData = async () => {
+        let datae = localStorage.getItem('userData')
+        let r = JSON.parse(datae)
+        let d = await requestApi("http://localhost:5000/patient/one", "POST", { id: r?.data.id, search: ser })
+        setList(d)
+    }
+
+    React.useEffect(() => {
+        getData()
+        // eslint-disable-next-line
+    }, [ser])
+
+
+
+    const onSubmit = async (form) => {
+        let { firstName, gender, mailid, dateOfBirth, doctor, specialization, appdateandtime } = form
+
+        if (!firstName || !gender || !mailid || !dateOfBirth || !doctor || !specialization || !appdateandtime) {
+            toast.error("Please enter Alll Details", {
+                hideProgressBar: true,
+                closeOnClick: true,
+            })
+        } else {
+
+            let d = await requestApi("http://localhost:5000/patient/update", "POST", form)
+            if (d?.error === true) {
+                toast.error(d?.message, {
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                })
+            } else {
+                toast.success(d?.message, {
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                })
+                getData()
+            }
         }
-    ]
-
-    let formvalue = {
-        firstname: "rohith",
-        lastname: "reddy",
-        middlename: "mandala",
-        mail: "rohith.mandala@outlook.com",
-        gender: "male",
-        dateofbirth: "1998-06-17",
-        address: "flat no 410",
-        specialization: "ent",
-        doctor: "rohith",
-        dateofapp: '2021-07-23T12:00',
-        description: "testing",
     }
 
     return (
@@ -62,33 +64,36 @@ const UpdatePatient = () => {
                 </div>
                 <input type="search"
                     className="rounded-lg px-2 py-2 text-xl"
-                    // onChange={(e) => setuserName(e.target.value)}
+                    onChange={(e) => setser(e.target.value)}
                     style={{ border: "1px solid #d3d3d3", background: '#ffffff', width: '75%', maxWidth: '600px' }}
                     placeholder="Search Appointment "
                     id="fname" name="fname"></input>
             </div>
             <div className="flex flex-wrap  ">
                 {
-                    updateList.map((a, i) => (
-                        <div key={i}>
+                    list?.data?.map((a, i) => (
+                        <div key={i} onClick={() => { setsingleRec(list?.data[i]); setdrawer(!drawer) }}>
                             <Card
-                                name={a.name}
-                                spe={a.spe}
-                                date={a.date}
-                                status={a.status}
-                                onClick={() => setdrawer(!drawer)}
+                                name={a.doctor}
+                                spe={a.specialization}
+                                date={a.appdateandtime}
+                                status={a.description}
+                                firstName={a.firstName}
+
                             />
                         </div>
                     ))
                 }
             </div>
+
+            <p>note : Click on Card to update..</p>
             {
                 drawer ? (
                     <Drawer onChange={() => { setdrawer(!drawer) }} >
                         <div className="p-4 m-4 space-y-6">
                             <Form
-                                onSubmit={(form) => { console.log(form) }}
-                                formValue={formvalue}
+                                onSubmit={(form) => { onSubmit(form) }}
+                                formValue={singleRec}
                             />
                         </div>
                     </Drawer>

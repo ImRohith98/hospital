@@ -4,6 +4,7 @@ import CompleteSvg from '../../../../style/svg/complete'
 import TotalSvg from '../../../../style/svg/total'
 
 const HomePatient = () => {
+
     return (
         <React.Fragment>
             <div className="p-4 text-2xl">

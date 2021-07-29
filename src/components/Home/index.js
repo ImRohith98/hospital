@@ -10,12 +10,11 @@ const HomePage = () => {
     return (
         <React.Fragment>
             {
-                r.module === "doctor" ? (
+                r.data.type === "doctor" ? (
                     <DoctorHome />
                 ) : (
                     <PatientHome />
                 )
-
             }
         </React.Fragment>
     )
